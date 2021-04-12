@@ -1,33 +1,48 @@
-
 #include <iostream>
 #include <vector>
 #include <cmath>
 
 using namespace std;
 
-bool is_integer(float k)
-{
-  return std::floor(k) == k;
-}
 
 int askRows(){
     int ROW = 0;
-    cout << "Rows"<<endl;
-    cin >> ROW;
+    while (true) {
+        cout << "Enter rows"<<endl;
+        cin >> ROW;
+        if (cin.fail()) {
+            cin.clear(); cin.ignore();
+            cout << "Try again" << endl;
+        } else break;
+    }
     return ROW;
 }
 int askColumns(){
     int COL = 0;
-    cout << "Columns"<<endl;
-    cin >> COL ;
+    while (true) {
+        cout << "Enter columns"<<endl;
+        cin >> COL ;
+        if (cin.fail()) {
+            cin.clear(); cin.ignore();
+            cout << "Try again" << endl;
+        } else break;
+    }
     return COL;
 }
-int change_one_zero(int num){
-    if(num >= 1){
-        num = 1;
-    }
-    else if(num <= 0){
-        num = 0;
+int ask_cell(){
+    int num = 2;
+    while (true) {
+        cout << "Enter cell's state:";
+        cin >> num;
+        if (cin.fail()) {
+            cin.clear(); cin.ignore();
+            cout << "Try again" << endl;
+        } 
+        else if(num != 1 && num != 0){
+            cin.clear(); cin.ignore();
+            cout << "Try again" << endl;
+        }
+        else break;
     }
     return num;
 }
@@ -35,21 +50,16 @@ vector<vector<int> > initial(int Row, int Col){
     vector<vector<int> > vec;
   
 
-    int num = 0;
     int cell = 0;
     cout << "Choose initial states for cells."<< endl;
-    cout << "Cells work with zeroes and ones"<< endl;
-    cout << "Under zero changes to 0 and over 1 changes to 1"<< endl<< "\n";  
+    cout << "Cells work with 0 and 1"<< endl;
     for (int i = 0; i < Col; i++) {
         vector<int> v1;
         for (int j = 0; j < Row; j++) {
-            cin >> num;
-            cell = change_one_zero(num);
+            cell = ask_cell();
             v1.push_back(cell);
         }
-        cout << "next row"<< endl;
-        // Pushing back above 1D vector
-        // to create the 2D vector
+        cout << "Next row"<< endl;
         vec.push_back(v1);
     }
     return vec;
@@ -71,7 +81,6 @@ int main()
     int Col = askColumns();
     vector<vector<int> > board = initial(Row,Col);
     
-    // Displaying the 2D vector
     print_vec(Row,Col,board);
 
     return 0;
