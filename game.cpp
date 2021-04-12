@@ -9,7 +9,7 @@ using namespace std;
 int askRows(){
     int ROW = 0;
     while (true) {
-        cout << "Enter grid height"<<endl;
+        cout << "Enter row amount:"<<endl;
         cin >> ROW;
         if (cin.fail()) {
             cin.clear(); cin.ignore();
@@ -21,7 +21,7 @@ int askRows(){
 int askColumns(){
     int COL = 0;
     while (true) {
-        cout << "Enter grid lenght"<<endl;
+        cout << "Enter column amount:"<<endl;
         cin >> COL ;
         if (cin.fail()) {
             cin.clear(); cin.ignore();
@@ -73,18 +73,7 @@ void print_vec(vector<vector<int> > board){
     cout << endl;
     }
 }
-int count_neighbours(vector<vector<int> > board){
-    int alive = 0;
-    for (uint8_t i = -1; i < 2; i++) {
-        for (uint8_t j = -1; j < 2; j++) {
-            if(board[i][j] == 1){
-                alive++;
-            }
-        }
-    }
-    return alive;
-}
-vector<vector<int> > nextboard(int Row, int Col, vector<vector<int> > board){
+void nextboard(int Row, int Col, vector<vector<int> > board){
     vector<vector<int> > next;
  
     int cell = 0;
@@ -100,15 +89,13 @@ vector<vector<int> > nextboard(int Row, int Col, vector<vector<int> > board){
                     if(board[x][y] == 1){
                         alive++;
                     }
-                    
                 }
             }
             
-           if(board[i][j] == 1){
+            if(board[i][j] == 1){
                         alive--;
             }
             //cout << alive << endl;
-            
             if(board[i][j] == 1){
                 if(alive < 2 || alive > 3){
                     cell = 0;
@@ -121,12 +108,16 @@ vector<vector<int> > nextboard(int Row, int Col, vector<vector<int> > board){
                 if(alive == 3){
                     cell = 1;
                 }
+                else{
+                    cell = 0;
+                }
             }
             v3.push_back(cell);
         }
         next.push_back(v3);
     }
-    return next;
+    board = next;
+    print_vec(board);
 }
 vector<vector<int> > extranum(int Row, int Col, vector<vector<int> > board){
     vector<vector<int> > extraboard;
@@ -158,14 +149,11 @@ int main()
     int Col = askColumns();
     
     vector<vector<int> > board = initial(Row,Col);
-    print_vec(board);
-    cout << "--------------------------------\n";
-    
     vector<vector<int> > extraboard = extranum(Row,Col,board);
-    print_vec(extraboard);
     cout << "--------------------------------\n";
-    
-    vector<vector<int> > newboard = nextboard(Row, Col, extraboard);
-    print_vec(newboard);
+    nextboard(Row, Col, extraboard);
+    cout << "--------------------------------\n";
+    nextboard(Row, Col, extraboard);
+
     return 0;
 }
