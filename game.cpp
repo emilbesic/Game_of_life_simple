@@ -73,14 +73,21 @@ void print_vec(vector<vector<int> > board){
     cout << endl;
 }
 }
-vector<vector<int> > extrazero(int Row, int Col){
+vector<vector<int> > extrazero(int Row, int Col, vector<vector<int> > board){
     vector<vector<int> > zeroboard;
 
     int cell = 0;
     for (int i = -1; i < Col+1; i++) {
         vector<int> v2;
         for (int j = -1; j < Row+1; j++) {
+            if(i < 0 || j < 0 || i == Col || j == Row){
+                cell = 0;
+            }
+            else{
+                cell = board[i][j];
+            }
             v2.push_back(cell);
+            
         }
         zeroboard.push_back(v2);
     }
@@ -95,7 +102,7 @@ int main()
     
     print_vec(board);
     cout << "--------------------------------\n";
-    vector<vector<int> > newboard = extrazero(Row,Col);
-    print_vec(newboard);
+    vector<vector<int> > emptyboard = extrazero(Row,Col,board);
+    print_vec(emptyboard);
     return 0;
 }
