@@ -1,5 +1,8 @@
+#include <iostream>
+#include <iostream>
 #include <vector>
 #include <cmath>
+#include <string.h>
 
 using namespace std;
 
@@ -7,7 +10,7 @@ using namespace std;
 int askRows(){
     int ROW = 0;
     while (true) {
-        cout << "Enter rows"<<endl;
+        cout << "Enter grid height"<<endl;
         cin >> ROW;
         if (cin.fail()) {
             cin.clear(); cin.ignore();
@@ -19,7 +22,7 @@ int askRows(){
 int askColumns(){
     int COL = 0;
     while (true) {
-        cout << "Enter columns"<<endl;
+        cout << "Enter grid lenght"<<endl;
         cin >> COL ;
         if (cin.fail()) {
             cin.clear(); cin.ignore();
@@ -82,16 +85,28 @@ int count_neighbours(vector<vector<int> > board){
     }
     return alive;
 }
-vector<vector<int> > nextboard(int Row, int Col, vector<vector<int> > board){
+void nextboard(int Row, int Col, vector<vector<int> > board){
     vector<vector<int> > next;
  
     int cell = 0;
-    for (int i = 1; i < Col+1; i++) {
-        vector<int> v2;
-        for (int j = 1; j < Row+1; j++) {
+    for (int i = 1; i < board.size()-1; i++) {
+        vector<int> v3;
+        for (int j = 1; j < board[i].size()-1; j++) {
             int neighbour = 0;
-            neighbour = count_neighbours(board);
-            if(board[i][j] == 1){
+            //neighbour = count_neighbours(board);
+            int alive = 0;
+            //cout << board[i][j] << endl;
+            
+            for (int k = -1; k < 2; k++) {
+                for (int l = -1; l < 2; l++) {
+                    
+                }
+            }
+            
+            //alive -= board[i][j];
+            cout << alive << endl;
+            
+            /*if(board[i][j] == 1){
                 if(neighbour < 2 || neighbour > 3){
                     cell = 1;
                 }
@@ -103,25 +118,25 @@ vector<vector<int> > nextboard(int Row, int Col, vector<vector<int> > board){
                 if(neighbour == 3){
                     cell = 0;
                 }
-            }
-            v2.push_back(cell);
+            }*/
+            //v3.push_back(cell);
         }
-        next.push_back(v2);
+        //next.push_back(v3);
     }
-    return next;
+    //return next;
 }
-vector<vector<int> > extrazero(int Row, int Col, vector<vector<int> > board){
-    vector<vector<int> > zeroboard;
+vector<vector<int> > extranum(int Row, int Col, vector<vector<int> > board){
+    vector<vector<int> > extraboard;
 
     int cell = 0;
     for (int i = -1; i < Row+1; i++) {
         vector<int> v2;
             if(i < 0 || i == Row){
-                cell = 0;
+                cell = 2;
             }
         for (int j = -1; j < Col+1; j++) {
             if(i < 0 || i == Row || j < 0 || j == Col ){
-                cell = 0;
+                cell = 2;
             }
             else{
                 cell = board[i][j];
@@ -129,9 +144,9 @@ vector<vector<int> > extrazero(int Row, int Col, vector<vector<int> > board){
             v2.push_back(cell);
             
         }
-        zeroboard.push_back(v2);
+        extraboard.push_back(v2);
     }
-    return zeroboard;
+    return extraboard;
 }
 int main()
 {
@@ -142,10 +157,11 @@ int main()
     
     print_vec(board);
     cout << "--------------------------------\n";
-    vector<vector<int> > extraboard = extrazero(Row,Col,board);
+    vector<vector<int> > extraboard = extranum(Row,Col,board);
     print_vec(extraboard);
     cout << "--------------------------------\n";
     /*vector<vector<int> > newboard = nextboard(Row, Col, extraboard);
     print_vec(newboard);*/
+    nextboard(Row, Col, extraboard);
     return 0;
 }
