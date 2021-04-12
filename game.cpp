@@ -2,48 +2,60 @@
 #include <vector>
 using namespace std;
   
-// Defining the rows and columns of
-// vector of vectors
 
-  
-int main()
-{
-    
+int askRows(){
     int ROW = 0;
-    int COL = 0;
     cout << "Rows"<<endl;
-    cin >> ROW ;
+    cin >> ROW;
+    return ROW;
+}
+int askColumns(){
+    int COL = 0;
     cout << "Columns"<<endl;
     cin >> COL ;
-    
-    // Initializing the vector of vectors
+    return COL;
+}
+vector<vector<int> > initial(int Row, int Col){
     vector<vector<int> > vec;
   
     // Elements to insert in column
     int num = 0;
   
     // Inserting elements into vector
-    for (int i = 0; i < COL; i++) {
+    for (int i = 0; i < Col; i++) {
         vector<int> v1;
   
-        for (int j = 0; j < ROW; j++) {
+        for (int j = 0; j < Row; j++) {
             cin >> num;
             v1.push_back(num);
         }
-        cout << "next"<< endl;
+        cout << "next row"<< endl;
         // Pushing back above 1D vector
         // to create the 2D vector
         vec.push_back(v1);
     }
-  
-    // Displaying the 2D vector
-    for (int i = 0; i < vec.size(); i++) {
-        for (int j = 0; j < vec[i].size(); j++){
+    return vec;
+}
+void print_vec(int Row,int Col,vector<vector<int> > vec){
+    for (uint8_t i = 0; i < vec.size(); i++) {
+        for (uint8_t j = 0; j < vec[i].size(); j++){
             cout << vec[i][j] << " ";
         
     }
     cout << endl;
-    }
+}
+}
+int main()
+{
+    
+    int Row = askRows();
+    int Col = askColumns();
+    vector<vector<int> > vec = initial(Row,Col);
+    
+    // Displaying the 2D vector
+    print_vec(Row,Col,vec);
+
     return 0;
 }
+
 
