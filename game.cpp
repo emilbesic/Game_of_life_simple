@@ -152,11 +152,22 @@ int main()
     vector<vector<int> > extraboard = extranum(Row,Col,board);
     cout << "--------------------------------\n";
     
+    int loopcount = 0;
+    while(1){
+        
+    if(loopcount==0){    
     extraboard = nextboard(Row, Col, extraboard);
     print_vec(extraboard);
     cout << "--------------------------------\n";
+    }
+    else {
     extraboard = extranum(Row,Col,extraboard);
     extraboard = nextboard(Row, Col, extraboard);
     print_vec(extraboard);
+    cout << "--------------------------------\n";
+    }
+    loopcount++;
+    
+    }
     return 0;
 }
