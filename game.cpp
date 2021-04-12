@@ -73,7 +73,7 @@ void print_vec(vector<vector<int> > board){
     cout << endl;
     }
 }
-void nextboard(int Row, int Col, vector<vector<int> > board){
+vector<vector<int> > nextboard(int Row, int Col, vector<vector<int> > board){
     vector<vector<int> > next;
  
     int cell = 0;
@@ -116,8 +116,7 @@ void nextboard(int Row, int Col, vector<vector<int> > board){
         }
         next.push_back(v3);
     }
-    board = next;
-    print_vec(board);
+    return next;
 }
 vector<vector<int> > extranum(int Row, int Col, vector<vector<int> > board){
     vector<vector<int> > extraboard;
@@ -149,11 +148,15 @@ int main()
     int Col = askColumns();
     
     vector<vector<int> > board = initial(Row,Col);
+    print_vec(board);
     vector<vector<int> > extraboard = extranum(Row,Col,board);
     cout << "--------------------------------\n";
-    nextboard(Row, Col, extraboard);
+    
+    extraboard = nextboard(Row, Col, extraboard);
+    print_vec(extraboard);
     cout << "--------------------------------\n";
-    nextboard(Row, Col, extraboard);
-
+    extraboard = extranum(Row,Col,extraboard);
+    extraboard = nextboard(Row, Col, extraboard);
+    print_vec(extraboard);
     return 0;
 }
