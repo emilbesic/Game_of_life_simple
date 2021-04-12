@@ -64,7 +64,7 @@ vector<vector<int> > initial(int Row, int Col){
     }
     return vec;
 }
-void print_vec(int Row,int Col,vector<vector<int> > board){
+void print_vec(vector<vector<int> > board){
     for (uint8_t i = 0; i < board.size(); i++) {
         for (uint8_t j = 0; j < board[i].size(); j++){
             cout << board[i][j] << " ";
@@ -73,38 +73,19 @@ void print_vec(int Row,int Col,vector<vector<int> > board){
     cout << endl;
 }
 }
-vector<vector<int>> cell_neighbour( int row, int col, vector<vector<int>> board){
-    
-    vector<vector<int>> nextboard;
-    
-    for(int x = 1; x < row - 1; x++){
-        for(int y = 1; x < col - 1; y++){
-            int alive = 0;
-            for(int i = -1; i < 2; i++){
-                for(int j = -1; j < 2; j++){
-                    alive += board[x + i][y + j];
-                }
-            } 
-            alive -= board[x][y];
-            
-            if((board[x][y] == 1) && (alive < 2)){
-                nextboard[x][y] = 0;
-            }
-            else if((board[x][y] == 1) && (alive > 3)){
-                nextboard[x][y] = 0;
-            }
-            else if((board[x][y] == 0) && (alive == 3)){
-                 nextboard[x][y] = 1;
-            }
-            else{
-                nextboard[x][y] = board[x][y];
-            }
+vector<vector<int> > extrazero(int Row, int Col){
+    vector<vector<int> > zeroboard;
+
+    int cell = 0;
+    for (int i = -1; i < Col+1; i++) {
+        vector<int> v2;
+        for (int j = -1; j < Row+1; j++) {
+            v2.push_back(cell);
         }
-    
+        zeroboard.push_back(v2);
     }
-
+    return zeroboard;
 }
-
 int main()
 {
     
@@ -112,10 +93,9 @@ int main()
     int Col = askColumns();
     vector<vector<int> > board = initial(Row,Col);
     
-    print_vec(Row,Col,board);
+    print_vec(board);
     cout << "--------------------------------\n";
-    vector<vector<int> > nextboard = cell_neighbour(Row,Col,board);
-    cout << nextboard[0][0];
+    vector<vector<int> > newboard = extrazero(Row,Col);
+    print_vec(newboard);
     return 0;
 }
-
