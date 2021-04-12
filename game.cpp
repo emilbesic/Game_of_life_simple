@@ -84,7 +84,7 @@ int count_neighbours(vector<vector<int> > board){
     }
     return alive;
 }
-void nextboard(int Row, int Col, vector<vector<int> > board){
+vector<vector<int> > nextboard(int Row, int Col, vector<vector<int> > board){
     vector<vector<int> > next;
  
     int cell = 0;
@@ -107,26 +107,26 @@ void nextboard(int Row, int Col, vector<vector<int> > board){
            if(board[i][j] == 1){
                         alive--;
             }
-            cout << alive << endl;
+            //cout << alive << endl;
             
-            /*if(board[i][j] == 1){
+            if(board[i][j] == 1){
                 if(alive < 2 || alive > 3){
-                    cell = 1;
+                    cell = 0;
                 }
                 else if(alive == 2 || alive == 3){
-                    cell = 0;
+                    cell = 1;
                 }
             }
             else if(board[i][j] == 0){
                 if(alive == 3){
-                    cell = 0;
+                    cell = 1;
                 }
-            }*/
-            //v3.push_back(cell);
+            }
+            v3.push_back(cell);
         }
-        //next.push_back(v3);
+        next.push_back(v3);
     }
-    //return next;
+    return next;
 }
 vector<vector<int> > extranum(int Row, int Col, vector<vector<int> > board){
     vector<vector<int> > extraboard;
@@ -165,7 +165,7 @@ int main()
     print_vec(extraboard);
     cout << "--------------------------------\n";
     
-    nextboard(Row, Col, extraboard);
-    //print_vec(newboard);
+    vector<vector<int> > newboard = nextboard(Row, Col, extraboard);
+    print_vec(newboard);
     return 0;
 }
