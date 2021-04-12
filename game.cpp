@@ -1,5 +1,4 @@
 #include <iostream>
-#include <iostream>
 #include <vector>
 #include <cmath>
 #include <string.h>
@@ -92,30 +91,34 @@ void nextboard(int Row, int Col, vector<vector<int> > board){
     for (int i = 1; i < board.size()-1; i++) {
         vector<int> v3;
         for (int j = 1; j < board[i].size()-1; j++) {
-            int neighbour = 0;
-            //neighbour = count_neighbours(board);
             int alive = 0;
-            //cout << board[i][j] << endl;
             
             for (int k = -1; k < 2; k++) {
                 for (int l = -1; l < 2; l++) {
+                    int x = i + k;
+                    int y = j + l;
+                    if(board[x][y] == 1){
+                        alive++;
+                    }
                     
                 }
             }
             
-            //alive -= board[i][j];
+           if(board[i][j] == 1){
+                        alive--;
+            }
             cout << alive << endl;
             
             /*if(board[i][j] == 1){
-                if(neighbour < 2 || neighbour > 3){
+                if(alive < 2 || alive > 3){
                     cell = 1;
                 }
-                else if(neighbour == 2 || neighbour == 3){
+                else if(alive == 2 || alive == 3){
                     cell = 0;
                 }
             }
             else if(board[i][j] == 0){
-                if(neighbour == 3){
+                if(alive == 3){
                     cell = 0;
                 }
             }*/
@@ -153,15 +156,16 @@ int main()
     
     int Row = askRows();
     int Col = askColumns();
-    vector<vector<int> > board = initial(Row,Col);
     
+    vector<vector<int> > board = initial(Row,Col);
     print_vec(board);
     cout << "--------------------------------\n";
+    
     vector<vector<int> > extraboard = extranum(Row,Col,board);
     print_vec(extraboard);
     cout << "--------------------------------\n";
-    /*vector<vector<int> > newboard = nextboard(Row, Col, extraboard);
-    print_vec(newboard);*/
+    
     nextboard(Row, Col, extraboard);
+    //print_vec(newboard);
     return 0;
 }
