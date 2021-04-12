@@ -72,7 +72,10 @@ void print_vec(int Row,int Col,vector<vector<int> > board){
     }
     cout << endl;
 }
-
+}
+int nextState(vector<vector<int>> board, int row, int col){
+    int bor_st = 0;
+}
 }
 int main()
 {
