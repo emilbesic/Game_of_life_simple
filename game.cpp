@@ -240,3 +240,5 @@ vector <vector<int>> nextboard(int Row, int Col, vector <vector<int>> board) {
     }
     return next;
 }
+
+
